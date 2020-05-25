@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<link href="https://fonts.googleapis.com/css?family=PT+Sans|Playfair+Display+SC" rel="stylesheet">
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script>
 </head>
 <body>
     <header>
@@ -20,16 +22,20 @@
     </header>
     <maim>
     <h1>Канбан</h1>
+    <p class="new">Добавить новую задачу</p>
     <div class="new_task">
-        <input type="text">
-        <button class="new_task__plus">
-            <span class="new_task__plus__span1"></span>
-            <span class="new_task__plus__span2"></span>
-        </button>
+        <input type="text" placeholder="Описание">
+        <button class="new_task__plus"></button>
     </div>
     <div class="rows">
         <div class="rows__items rows__plan">
             <h2>План</h2>
+            <div>
+                <h3>Задача №1</h3>
+                <p>Первая задача</p>
+                <button class="rows__plan__check"><i class="far fa-edit"></i></button>
+                <button class="rows__plan__check"><i class="far fa-check-circle"></i></button></p>
+            </div>
         </div>
         <div class="rows__items rows__process">
             <h2>В процессе</h2>
@@ -40,7 +46,6 @@
     </div>
     </main>
 <footer>
-    <p>Интернет-магазин гитар и укулеле</p>
 	<p>Copyright © 2020 All Rights Reserved.</p>
 </footer>
 </body>

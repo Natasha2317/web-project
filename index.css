@@ -82,6 +82,13 @@ h1{
     text-align: center;
     padding-top: 130px;
 }
+.new{
+  font-family: 'Playfair Display SC', serif;
+  font-size: 2rem;
+  color: rgb(73, 73, 73);
+  text-align: center;
+  margin-top: 50px;
+}
 .nav-menu__switch__header{
     margin-left: -200px;
     margin-top: 50px;
@@ -89,7 +96,7 @@ h1{
 }
 .new_task{
     text-align: center;
-    margin-top: 50px;
+    margin-top: 15px;
     display: flex;
     justify-content: center;
 }
@@ -97,6 +104,9 @@ h1{
     border-radius: 5px;
     width: 500px;
     height: 50px;
+    font-size: 20px;
+    font-family: 'Playfair Display SC', serif;
+    margin-left: 50px;
 }
 .new_task__plus{
     width: 60px;
@@ -112,18 +122,64 @@ h1{
     color: white;
     font-size: 50px;
 }
+button,
+button:active, 
+button:focus {
+    outline: none;
+    cursor: pointer;
+}
+::placeholder{
+    padding-left: 7px;
+}
 .rows{
-    width: 80%;
+    width: 85%;
     height: 1200px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 15px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
 }
 .rows__items{
-  text-align: center;
-  font-size: 30px;
+    text-align: center;
+    font-size: 30px;
+    border: 3px solid rgba(255, 205, 205, 0.616);
+    border-radius: 8px;
+}
+.rows__plan > div{
+    margin-top: 20px;
+    padding-top: 20px;
+    background-color: #eeeeee;
+    height: 300px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+}
+.rows__plan > div > p{
+    font-size: 20px;
+    margin-top: 10px;
+}
+h3{
+  font-size: 28px;
+}
+.rows__items > div > p{
+    text-align: start;
+    margin-left: 25px;
+}
+.rows__plan__check{
+  border: none;
+}
+.fa-edit{
+  font-size: 35px;
+  margin: 170px 0px 0px 190px;
+}
+.fa-check-circle{
+  margin-left: 7px;
+  font-size: 35px;
+  background-color: rgb(86, 214, 114);
+  border-radius: 65%;
 }
 footer{
     position: fixed;
