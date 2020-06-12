@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans|Playfair+Display+SC" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="index2.css">
+  <title>Kanban</title>
+</head>
+<body>
+  <div id="app" v-bind:class = "{ 'dark__theme': darkTheme, 'normal__pos': person }" class = "anim back">
+    <header v-if = '!person' v-bind:class = "{ 'dark__header': darkTheme }">
+    <img src="logo.png">
+      <div class = "main__content anim" v-bind:class = "{ 'dark__content': darkTheme }">
+        <h1>Канбан</h1>
+        <p>Добавить новую задачу:</p>
+        <div class = "main__input anim" v-bind:class = "{ 'dark__mode': darkTheme }">
+          <input type="text" placeholder="Описание" v-on:input = "DescValue = $event.target.value" class = "anim">
+          <i v-if = "darkTheme" class="fa fa-plus-circle fa-2x anim dark__hover" aria-hidden="true" v-on:click = "checkTextInInput(DescValue)"></i>
+          <i v-else class="fa fa-plus-circle fa-2x anim light__hover" aria-hidden="true" v-on:click = "checkTextInInput(DescValue)"></i>
+        </div>
+      </div>
+      <div class="switch">
+        <label class="switch__header" for="customCheck1" :class = "{ 'switch_dark': darkTheme }">Темная тема</label>
+        <input type="checkbox" class="switch_input" id="customCheck1" @click = "change_theme()">
+      </div>
+    </header>
+    <div v-if = "person" class = "reg__form" v-bind:class = "{ 'dark__reg__form': darkTheme}">
+      <input type="text" required placeholder="Ответственный" v-model = "userName">
+      <button class = "btn__mode" v-on:click = "checkName(userName)">Добавить</button>
+    </div>
+    <main v-if = '!person'>
+      <div class = "cards anim plan__content" v-bind:class = "{ 'dark__block': darkTheme }">
+        <h3 class = "h3">План ( {{ schedule[0] }} )</h3>
+        <ul @drop='onDrop($event, "plan")' @dragover.prevent @dragenter.prevent>
+          <li
+            v-for='(item, index) in plan'
+            v-if = "item.tag == 'plan'"
+            v-bind:class = "{ 'theme_dark': darkTheme }"
+            class = "anim"
+            :key='item.description'
+            draggable
+            @dragstart='startDrag($event, item)'>
+            <h3 class = "header__color">{{ item.title }}</h3>
+            <p class = "text__color edit__font">{{ item.description }}</p>
+            <div class = "sub__menu anim" v-bind:class = "{ 'dark-sub__menu': darkTheme }">
+              <button @click = "ready_button(index)" v-bind:class = "{ 'dark__button': darkTheme }"> <img src="check.png" alt="ready" width="30" class="icon"> </button>
+              <button @click = "edit_app_block(index)" v-bind:class = "{ 'dark__button': darkTheme }"><img src="edit.png" alt="edit task" width="25" class="icon"></button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class = "procces__content cards anim" v-bind:class = "{ 'dark__block': darkTheme }">
+        <h3>В процессе ( {{ schedule[1] }} )</h3>
+        <ul @drop='onDrop($event, "procces")' @dragover.prevent @dragenter.prevent>
+          <li
+            v-for='(item, index) in plan'
+            v-if = "item.tag == 'procces'"
+            v-bind:class = "{ 'theme_dark': darkTheme }"
+            class = "anim"
+            :key='item.description'
+            draggable
+            @dragstart='startDrag($event, item)'>
+            <h3 class = "bold header__color">{{ item.title }}</h3>
+            <p class = "text__color edit__font">{{ item.description }}</p>
+            <p class = "bold">Начало выполнения:</p>
+            <p class = "text__color edit__font">{{ item.time }}</p>
+            <p class = "bold">Ответственный: </p>
+            <p class = "text__color edit__font">{{ item.name }}</p>
+            <div class = "sub__menu anim" v-bind:class = "{ 'dark-sub__menu': darkTheme }">
+              <button @click = "ready_button(index)" v-bind:class = "{ 'dark__button': darkTheme }"><img src="check.png" alt="ready" width="27" class="icon"></button>
+              <button @click = "edit_app_block(index)" v-bind:class = "{ 'dark__button': darkTheme }"><img src="edit.png" alt="edit task" width="28" class="icon"></button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class = "ended__content cards anim" v-bind:class = "{ 'dark__block': darkTheme }">
+        <h3 class = "h3">Готово ( {{ schedule[2] }} )</h3>
+        <ul
+        @drop='onDrop($event, "ended")'
+        @dragover.prevent
+        @dragenter.prevent>
+          <li
+          v-for='(item, index) in plan'
+          v-if = "item.tag == 'ended'"
+          v-bind:class = "{ 'theme_dark': darkTheme }"
+          class = "anim"
+          :key='item.description'
+          draggable
+          @dragstart='startDrag($event, item)'>
+            <h3 class = "bold header__color">{{ item.title }}</h3>
+            <p class = "text__color edit__font">{{ item.description }}</p>
+            <p class = "bold">Начало выполнения:</p>
+            <p class = "text__color edit__font">{{ item.time }}</p>
+            <p class = "bold">Потраченное время</p>
+            <p class = "text__color edit__font" style="width: 80%">{{ item.time_of_work }}</p>
+            <p class = "bold">Ответственный</p>
+            <p class = "text__color edit__font">{{ item.name }}</p>
+            <div class = "sub__menu anim" v-bind:class = "{ 'dark-sub__menu': darkTheme }">
+              <button @click = "edit_app_block(index)" v-bind:class = "{ 'dark__button': darkTheme }"><img src="edit.png" alt="edit task" width="28" class="icon"></button>
+              <button v-on:click = "delete_app_block(index)" v-bind:class = "{ 'dark__button': darkTheme }"><img src="delete.png" alt="delete" width="28" class="icon"></button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </main>
+    <transition name = "modal_window">
+      <div class = "sub__main" v-if = "windowVisibility">
+        <div class="main__form light__border" v-bind:class = "{ 'dark__background': darkTheme }">
+          <div class="close" v-bind:class = "{ 'dark__mode': darkTheme }">
+            <i v-if = "darkTheme" class="fa fa-times fa-3x dark__hover" aria-hidden="true" v-on:click = "windowVisibility = !windowVisibility"></i>
+            <i v-else class="fa fa-times fa-3x" aria-hidden="true" v-on:click = "windowVisibility = !windowVisibility"></i>
+          </div>
+          <div class = "flex__container">
+            <div class = "flex-form__object dark-header__content" v-bind:class = "{ 'dark__mode': darkTheme }">
+              <p>Описание:</p>
+              <input type="text" placeholder="Описание" v-model = "search">
+            </div>
+            <div class = "flex-form__object dark-header__content" v-bind:class = "{ 'dark__mode': darkTheme }">
+              <p>Статус:</p>
+              <select name="" id="selecetion" v-model = "status" v-bind:class = "{ 'dark__sel': darkTheme }">
+                <option value="plan">План</option>
+                <option value="procces">В процессе</option>
+                <option value="ended">Готово</option>
+              </select>
+            </div>
+            <div class = "flex-form__object dark-header__content" v-bind:class = "{ 'dark__mode': darkTheme, 'null': boolevo[0] }">
+              <p>Ответственный:</p>
+              <input type="text" required placeholder="Имя" v-model = "name">
+            </div>
+            <div class = "flex-form__object dark-header__content" v-bind:class = "{ 'dark__mode': darkTheme, 'null': boolevo[0] }">
+              <p>Дата и время начала:</p>
+              <input type="text" placeholder="01.01.2020, 00:00:00" v-model = "start">
+            </div>
+            <div class = "flex-form__object dark-header__content" v-bind:class = "{ 'dark__mode': darkTheme, 'null': boolevo[0], 'null': boolevo[1]  }">
+              <p>Дата и время завершения:</p>
+              <input type="text" placeholder="01.01.2020, 00:00:00" v-model = "end">
+            </div>
+            <button v-if = "!darkTheme" v-on:click = "add_data_to_array(search, status, name, start, end)" v-bind:class = "{ 'dark_save': darkTheme }">Сохранить</button>
+            <button v-else v-on:click = "add_data_to_array(search, status, name, start, end)" v-bind:class = "{ 'dark_save': darkTheme }">Сохранить</button>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <div class = "back" v-if = "windowVisibility"></div>
+    <footer>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src = 'index.js'></script>
+</body>
+</html>
