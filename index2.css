@@ -317,7 +317,7 @@ option{
     transition: .8s;
 }
 .theme_dark > p{
-    color: #000000;
+    color: #9c9c9c;
     transition: .8s;
 }
 .dark__content > p{
@@ -376,11 +376,13 @@ option{
     position: relative;
     background-color: #fff;
 }
+.reg__form > p{
+    font-size: 15px;
+}
 .reg__form input{
     border: 0;
     background: none;
     outline: none;
-    width: 15vw;
     padding: 5px;
     position: relative;
     border: 1px solid rgb(163, 163, 163);

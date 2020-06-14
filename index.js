@@ -1,4 +1,3 @@
-const plan = []
 new Vue({
   el: "#app",
   data: {
@@ -19,15 +18,15 @@ new Vue({
     selected_id: 0,
     check_box: 0,
     schedule: [0, 0, 0],
-    plan: plan,
+    plan: [],
     dif_id: 0
   },
   methods: {
     counter: function(){
-      let plans = 0
-      let works = 0
-      let done = 0
-      for(let i = 0; i < this.plan.length; i++){
+      var plans = 0
+      var works = 0
+      var done = 0
+      for(var i = 0; i <this.plan.length; i++){
         if(this.plan[i]['tag'] == "plan"){
           plans++
         }
@@ -80,13 +79,13 @@ new Vue({
           this.counter()
       }
       else if((status == 'plan' || status == 'procces' || status == 'ended') && this.editable == true){
-                for(let i = 0; i < this.plan.length; i++){
+                for(var i = 0; i < this.plan.length; i++){
                   if(this.plan[i]["id"].includes(this.selected_id)){
-                    this.plan[i]["description"] = this.search
-                    this.plan[i]["time"] = this.start
-                    this.plan[i]["time_of_work"] = this.end
-                    this.plan[i]["name"] = this.name
-                    this.plan[i]["tag"] = this.status
+                      this.plan[i]["description"] = this.search
+                      this.plan[i]["time"] = this.start
+                      this.plan[i]["time_of_work"] = this.end
+                      this.plan[i]["name"] = this.name
+                      this.plan[i]["tag"] = this.status
                   }
                 }
                 this.windowVisibility = !this.windowVisibility
@@ -97,22 +96,22 @@ new Vue({
       }
     },
     edit_app_block: function(index){
-      for(let i = 0; i < this.plan.length; i++){
+      for(var i = 0; i < this.plan.length; i++){
         if(this.plan[i]["id"].includes(index + 1)){
           if(this.plan[i]["tag"] == "plan"){
-            this.boolevo[0] = true
-            this.boolevo[1] = true
-            this.boolevo[2] = false
+              this.boolevo[0] = true
+              this.boolevo[1] = true
+              this.boolevo[2] = false
           }
           else if(this.plan[i]["tag"] == "procces"){
-            this.boolevo[0] = false
-            this.boolevo[1] = true
-            this.boolevo[2] = false
+              this.boolevo[0] = false
+              this.boolevo[1] = true
+              this.boolevo[2] = false
           }
           else if(this.plan[i]["tag"] == "ended"){
-            this.boolevo[0] = false
-            this.boolevo[1] = false
-            this.boolevo[2] = true
+              this.boolevo[0] = false
+              this.boolevo[1] = false
+              this.boolevo[2] = true
           }
           this.search =  this.plan[i]["description"],
           this.status = this.plan[i]["tag"],
@@ -126,7 +125,7 @@ new Vue({
       }
     },
     ready_button: function(index){
-      for(let i = 0; i < this.plan.length; i++){
+      for(var i = 0; i < this.plan.length; i++){
         let p = 0
         if(this.plan[i]["id"].includes(index + 1)){
           if(this.plan[i]["tag"] == "plan"){
@@ -187,7 +186,7 @@ new Vue({
       };
     },
     delete_app_block: function(index){
-      for(let i = 0; i < this.plan.length; i++){
+      for(var i = 0; i < this.plan.length; i++){
         if(this.plan[i]["id"].includes(index + 1)){
           for(let j = i + 1; j < this.plan.length; j++){
             this.plan[j]["id"] = 'Задание ' + (this.plan[j]["id"].split(" ")[1] - 1)
