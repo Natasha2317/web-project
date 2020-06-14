@@ -28,6 +28,7 @@
       </div>
     </header>
     <div v-if = "person" class = "reg__form" v-bind:class = "{ 'dark__reg__form': darkTheme}">
+      <p>Назначьте ответсвенного</p>
       <input type="text" required placeholder="Ответственный" v-model = "userName">
       <button class = "btn__mode" v-on:click = "checkName(userName)">Добавить</button>
     </div>
@@ -35,14 +36,7 @@
       <div class = "cards anim plan__content" v-bind:class = "{ 'dark__block': darkTheme }">
         <h3 class = "h3">План ( {{ schedule[0] }} )</h3>
         <ul @drop='onDrop($event, "plan")' @dragover.prevent @dragenter.prevent>
-          <li
-            v-for='(item, index) in plan'
-            v-if = "item.tag == 'plan'"
-            v-bind:class = "{ 'theme_dark': darkTheme }"
-            class = "anim"
-            :key='item.description'
-            draggable
-            @dragstart='startDrag($event, item)'>
+          <li v-for='(item, index) in plan' v-if = "item.tag == 'plan'" v-bind:class = "{ 'theme_dark': darkTheme }" class = "anim" :key='item.description' draggable @dragstart='startDrag($event, item)'>
             <h3 class = "header__color">{{ item.title }}</h3>
             <p class = "text__color edit__font">{{ item.description }}</p>
             <div class = "sub__menu anim" v-bind:class = "{ 'dark-sub__menu': darkTheme }">
@@ -55,14 +49,7 @@
       <div class = "procces__content cards anim" v-bind:class = "{ 'dark__block': darkTheme }">
         <h3>В процессе ( {{ schedule[1] }} )</h3>
         <ul @drop='onDrop($event, "procces")' @dragover.prevent @dragenter.prevent>
-          <li
-            v-for='(item, index) in plan'
-            v-if = "item.tag == 'procces'"
-            v-bind:class = "{ 'theme_dark': darkTheme }"
-            class = "anim"
-            :key='item.description'
-            draggable
-            @dragstart='startDrag($event, item)'>
+          <li v-for='(item, index) in plan' v-if = "item.tag == 'procces'" v-bind:class = "{ 'theme_dark': darkTheme }" class = "anim" :key='item.description' draggable @dragstart='startDrag($event, item)'>
             <h3 class = "bold header__color">{{ item.title }}</h3>
             <p class = "text__color edit__font">{{ item.description }}</p>
             <p class = "bold">Начало выполнения:</p>
@@ -78,23 +65,13 @@
       </div>
       <div class = "ended__content cards anim" v-bind:class = "{ 'dark__block': darkTheme }">
         <h3 class = "h3">Готово ( {{ schedule[2] }} )</h3>
-        <ul
-        @drop='onDrop($event, "ended")'
-        @dragover.prevent
-        @dragenter.prevent>
-          <li
-          v-for='(item, index) in plan'
-          v-if = "item.tag == 'ended'"
-          v-bind:class = "{ 'theme_dark': darkTheme }"
-          class = "anim"
-          :key='item.description'
-          draggable
-          @dragstart='startDrag($event, item)'>
+        <ul @drop='onDrop($event, "ended")' @dragover.prevent @dragenter.prevent>
+          <li v-for='(item, index) in plan' v-if = "item.tag == 'ended'" v-bind:class = "{ 'theme_dark': darkTheme }" class = "anim" :key='item.description' draggable @dragstart='startDrag($event, item)'>
             <h3 class = "bold header__color">{{ item.title }}</h3>
             <p class = "text__color edit__font">{{ item.description }}</p>
             <p class = "bold">Начало выполнения:</p>
             <p class = "text__color edit__font">{{ item.time }}</p>
-            <p class = "bold">Потраченное время</p>
+            <p class = "bold">Затраченное время</p>
             <p class = "text__color edit__font" style="width: 80%">{{ item.time_of_work }}</p>
             <p class = "bold">Ответственный</p>
             <p class = "text__color edit__font">{{ item.name }}</p>
