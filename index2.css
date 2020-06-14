@@ -416,7 +416,7 @@ option{
 .dark__reg__form > input {
     background-color: #1c1b1f;
     border: rgb(175, 175, 175);
-    color: #1c1b1f;
+    color: #d1d1d1;
 }
 .modal_window-enter-active, .modal_window-leave-active{
     transition: all .4s;
