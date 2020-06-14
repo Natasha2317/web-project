@@ -333,7 +333,7 @@ option{
     transition: .8s;
 }
 .dark__button > img{
-    background-color: #142129;
+    background-color: #1c1d1d;
     transition: .8s;
 }
 .dark__mode input, .dark__mode select{
