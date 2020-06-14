@@ -23,23 +23,20 @@ new Vue({
   },
   methods: {
     counter: function(){
-      var plans = 0
-      var works = 0
-      var done = 0
-      for(var i = 0; i <this.plan.length; i++){
+      this.schedule[0] = 0
+      this.schedule[1] = 0
+      this.schedule[2] = 0
+      for(var i = 0; i < this.plan.length; i++){
         if(this.plan[i]['tag'] == "plan"){
-          plans++
+          this.schedule[0]++
         }
         else if(this.plan[i]['tag'] == "procces"){
-          works++
+          this.schedule[1]++
         }
         else if(this.plan[i]['tag'] == "ended"){
-          done++
+          this.schedule[2]++
         }
       }
-      this.schedule[0] = plans
-      this.schedule[1] = works
-      this.schedule[2] = done
       console.log(this.schedule)
     },
 
@@ -126,10 +123,12 @@ new Vue({
     },
     ready_button: function(index){
       for(var i = 0; i < this.plan.length; i++){
-        let p = 0
+        var p = 0
         if(this.plan[i]["id"].includes(index + 1)){
           if(this.plan[i]["tag"] == "plan"){
             this.plan[i]["tag"] = 'procces'
+            this.schedule[1] =  this.schedule[1] + 1
+            this.schedule[0] =  this.schedule[0] - 1
             if(this.plan[i]["time"] == "" && p == 0){
               this.plan[i]["time"] = new Date().toLocaleString();
               this.plan[i]["data"] = new Date();
