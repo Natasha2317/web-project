@@ -11,9 +11,6 @@
     width: 100%;
     min-height: 100vh;
 }
-.back{
-    background-color: white;
-}
 header{
     display: flex;
     width: 100%;
@@ -189,7 +186,7 @@ button{
 .back{
     position: absolute;
     width: 100vw;
-    height: 100vh;
+    min-height: 200vh;
     z-index: 3;
     background-color: rgba(163, 163, 163, .3);
 }
