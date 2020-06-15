@@ -219,6 +219,8 @@ new Vue({
       item.tag = list
       let p = 0
       if(item.tag == "procces" && item.time == "" && p == 0){
+        this.schedule[0] = this.schedule[0] - 1
+        this.schedule[1] = this.schedule[1] + 1
         item.time = new Date().toLocaleString()
         item.data = new Date()
       }
